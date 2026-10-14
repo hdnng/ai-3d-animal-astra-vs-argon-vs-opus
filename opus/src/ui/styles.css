@@ -1,0 +1,53 @@
+:root {
+  --ui-bg: rgba(12, 16, 22, 0.72);
+  --ui-bg-strong: rgba(12, 16, 22, 0.82);
+  --ui-border: rgba(255, 255, 255, 0.1);
+  --ui-text: #e8e4dc;
+  --ui-dim: #9aa3ad;
+  --ui-accent: #e2a54a;
+  --ui-accent-2: #7fb3d5;
+  --hunger: #d9774a;
+  --thirst: #4aa8d9;
+  --energy: #d9c84a;
+  --social: #b27fd9;
+  --fear: #d94a6b;
+  --font: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  background: #0b0f14;
+  color: var(--ui-text);
+  font-family: var(--font);
+}
+
+#app {
+  position: fixed;
+  inset: 0;
+}
+
+#scene {
+  display: block;
+  width: 100%;
+  height: 100%;
+  outline: none;
+  touch-action: none;
+  cursor: grab;
+}
+
+#scene:active {
+  cursor: grabbing;
+}
+
+#ui {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
