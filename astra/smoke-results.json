@@ -1,0 +1,40 @@
+{
+  "passed": true,
+  "checks": 24,
+  "consoleErrors": [],
+  "consoleWarnings": [],
+  "stats": {
+    "ready": true,
+    "state": "walk",
+    "manual": false,
+    "position": [
+      -4.288645350077636,
+      -0.36905567055239663,
+      3.1226740857183284
+    ],
+    "needs": {
+      "hunger": 26.30600000000001,
+      "thirst": 33.45900000000002,
+      "energy": 83.69791666666616
+    },
+    "hour": 16.056666666666494,
+    "time": 1.6999999999999988,
+    "fps": 24.396351400819018,
+    "frameMs": 40.989735865438824,
+    "footError": 1.2573000033218179e-15,
+    "bones": 26,
+    "entities": 39,
+    "vegetation": 21410,
+    "decisions": 1,
+    "drawCalls": 101,
+    "triangles": 226284,
+    "geometries": 56,
+    "textures": 6,
+    "quality": {
+      "shadows": "medium",
+      "scale": 0.6,
+      "post": false
+    },
+    "camera": "follow"
+  }
+}

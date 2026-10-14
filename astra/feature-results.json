@@ -1,0 +1,39 @@
+{
+  "scenarios": [
+    {
+      "need": "hunger",
+      "state": "eat",
+      "seen": true,
+      "maxFootError": 8.140289677804162e-15,
+      "needs": {
+        "hunger": 8.007000000000192,
+        "thirst": 21.200000000000614,
+        "energy": 84.07474999998213
+      }
+    },
+    {
+      "need": "thirst",
+      "state": "drink",
+      "seen": true,
+      "maxFootError": 7.352480925324046e-15,
+      "needs": {
+        "hunger": 15.80000000000041,
+        "thirst": 35.94999999999913,
+        "energy": 82.93358333331555
+      }
+    },
+    {
+      "need": "energy",
+      "state": "sleep",
+      "seen": true,
+      "maxFootError": 7.990569434546164e-15,
+      "needs": {
+        "hunger": 15.80000000000041,
+        "thirst": 21.200000000000614,
+        "energy": 96.79049999999594
+      }
+    }
+  ],
+  "routeValid": true,
+  "pathNodes": 18
+}

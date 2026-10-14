@@ -1,0 +1,36 @@
+{
+  "files": [
+    {
+      "path": "dist/assets/effects-rR4WH2i8.js",
+      "bytes": 18503,
+      "gzipBytes": 4436
+    },
+    {
+      "path": "dist/assets/index-284BcnE2.css",
+      "bytes": 10314,
+      "gzipBytes": 3195
+    },
+    {
+      "path": "dist/assets/index-BxBuXzz9.js",
+      "bytes": 84947,
+      "gzipBytes": 27472
+    },
+    {
+      "path": "dist/assets/three-core-CwhNL0Am.js",
+      "bytes": 203284,
+      "gzipBytes": 57141
+    },
+    {
+      "path": "dist/assets/three-renderer-B3wbE_5a.js",
+      "bytes": 324293,
+      "gzipBytes": 78428
+    },
+    {
+      "path": "dist/index.html",
+      "bytes": 1759,
+      "gzipBytes": 865
+    }
+  ],
+  "totalBytes": 643100,
+  "totalGzipBytes": 171537
+}

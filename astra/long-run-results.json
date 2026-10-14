@@ -1,0 +1,201 @@
+{
+  "passed": true,
+  "simulatedSeconds": 303.01666666671736,
+  "initialHeapMB": 7.0688934326171875,
+  "finalHeapMB": 6.863803863525391,
+  "heapGrowthMB": -0.20508956909179688,
+  "samples": [
+    {
+      "minute": 1,
+      "heapMB": 6.562595367431641,
+      "stats": {
+        "ready": true,
+        "state": "idle",
+        "manual": false,
+        "position": [
+          -9.588109737745933,
+          0.21067300788856802,
+          -6.976424194512541
+        ],
+        "needs": {
+          "hunger": 37.43000000000043,
+          "thirst": 6.781500000000165,
+          "energy": 72.05366666664779
+        },
+        "hour": 18.11666666666023,
+        "time": 63.49999999999768,
+        "fps": 18.647389476066593,
+        "frameMs": 53.62680933347117,
+        "footError": 3.988409578849797e-15,
+        "bones": 26,
+        "entities": 39,
+        "vegetation": 21410,
+        "decisions": 14,
+        "drawCalls": 78,
+        "triangles": 177841,
+        "geometries": 53,
+        "textures": 21,
+        "quality": {
+          "shadows": "medium",
+          "scale": 0.8,
+          "post": true
+        },
+        "camera": "follow"
+      }
+    },
+    {
+      "minute": 2,
+      "heapMB": 6.579444885253906,
+      "stats": {
+        "ready": true,
+        "state": "walk",
+        "manual": false,
+        "position": [
+          -14.506815694076145,
+          0.0864707411035376,
+          -22.282088155900894
+        ],
+        "needs": {
+          "hunger": 8.292000000000202,
+          "thirst": 23.166000000000786,
+          "energy": 97.29958333332988
+        },
+        "hour": 20.139444444431856,
+        "time": 124.18333333332757,
+        "fps": 24.437231072921236,
+        "frameMs": 40.921166437227605,
+        "footError": 5.0270550383173204e-15,
+        "bones": 26,
+        "entities": 39,
+        "vegetation": 21410,
+        "decisions": 26,
+        "drawCalls": 110,
+        "triangles": 220514,
+        "geometries": 53,
+        "textures": 21,
+        "quality": {
+          "shadows": "medium",
+          "scale": 0.8,
+          "post": true
+        },
+        "camera": "follow"
+      }
+    },
+    {
+      "minute": 3,
+      "heapMB": 6.614692687988281,
+      "stats": {
+        "ready": true,
+        "state": "walk",
+        "manual": false,
+        "position": [
+          -4.952861985147429,
+          0.2516743793741171,
+          9.284515613190035
+        ],
+        "needs": {
+          "hunger": 19.212000000000614,
+          "thirst": 39.546000000001406,
+          "energy": 83.3784999999787
+        },
+        "hour": 22.16166666664793,
+        "time": 184.85000000003924,
+        "fps": 25.525548791172127,
+        "frameMs": 39.17643488025004,
+        "footError": 2.561344912845726e-15,
+        "bones": 26,
+        "entities": 39,
+        "vegetation": 21410,
+        "decisions": 44,
+        "drawCalls": 76,
+        "triangles": 175338,
+        "geometries": 53,
+        "textures": 21,
+        "quality": {
+          "shadows": "medium",
+          "scale": 0.8,
+          "post": true
+        },
+        "camera": "follow"
+      }
+    },
+    {
+      "minute": 4,
+      "heapMB": 6.775485992431641,
+      "stats": {
+        "ready": true,
+        "state": "idle",
+        "manual": false,
+        "position": [
+          -1.0833939722714228,
+          -0.7634931237454611,
+          -5.881386054206263
+        ],
+        "needs": {
+          "hunger": 30.078000000001026,
+          "thirst": 9.742500000000277,
+          "energy": 71.93474999996076
+        },
+        "hour": 0.17388888886455875,
+        "time": 245.21666666675395,
+        "fps": 9.710528938082572,
+        "frameMs": 102.98100200064475,
+        "footError": 1.8038988979531736e-15,
+        "bones": 26,
+        "entities": 39,
+        "vegetation": 21410,
+        "decisions": 57,
+        "drawCalls": 114,
+        "triangles": 220874,
+        "geometries": 53,
+        "textures": 21,
+        "quality": {
+          "shadows": "medium",
+          "scale": 0.8,
+          "post": true
+        },
+        "camera": "follow"
+      }
+    },
+    {
+      "minute": 5,
+      "heapMB": 6.863803863525391,
+      "stats": {
+        "ready": true,
+        "state": "eat",
+        "manual": false,
+        "position": [
+          1.3744154816344287,
+          -0.7994870334370628,
+          -3.36699233483704
+        ],
+        "needs": {
+          "hunger": 0,
+          "thirst": 26.064000000000895,
+          "energy": 59.96533333328635
+        },
+        "hour": 2.1888888888647124,
+        "time": 305.66666666671733,
+        "fps": 5.853475428770765,
+        "frameMs": 170.8386773240459,
+        "footError": 1.2609709600486848e-15,
+        "bones": 26,
+        "entities": 39,
+        "vegetation": 21410,
+        "decisions": 70,
+        "drawCalls": 117,
+        "triangles": 224631,
+        "geometries": 53,
+        "textures": 21,
+        "quality": {
+          "shadows": "medium",
+          "scale": 0.8,
+          "post": true
+        },
+        "camera": "follow"
+      }
+    }
+  ],
+  "errors": [],
+  "warnings": []
+}
