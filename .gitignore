@@ -1,0 +1,9 @@
+# Dependencies & build output (reproducible via `npm install` / `npm run build` in each folder)
+node_modules/
+*/dist/
+
+# Local test runner caches
+*/test-results/
+*/playwright-report/
+*.log
+.DS_Store
