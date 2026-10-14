@@ -1,0 +1,19 @@
+{
+  "timestamp": "2026-10-14T05:17:26.621Z",
+  "gpuRenderer": "ANGLE (Intel, Intel(R) UHD Graphics 620 (0x00005917) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+  "durationSeconds": 30,
+  "totalFrames": 1297,
+  "averageFps": 60.68,
+  "onePercentLowFps": 18.62,
+  "averageFrameTimeMs": 16.48,
+  "p99FrameTimeMs": 53.7,
+  "memoryStartMB": 22.03,
+  "memoryEndMB": 22.03,
+  "memoryDeltaMB": 0,
+  "drawCalls": 33,
+  "triangles": 208318,
+  "geometriesInMemory": 22,
+  "texturesInMemory": 7,
+  "entityCount": 91,
+  "consoleErrors": 0
+}
