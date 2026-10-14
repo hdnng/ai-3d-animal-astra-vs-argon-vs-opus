@@ -1,0 +1,95 @@
+{
+  "bench": [
+    {
+      "model": "argon",
+      "config": "adaptive (default), Vite dev server, vsync off",
+      "viewport": "1280x720",
+      "reportedFps": 60.68,
+      "wallClockFps": 43.2,
+      "onePercentLow": 18.62,
+      "p99Ms": 53.7,
+      "frames": 1297,
+      "seconds": 30,
+      "countedSeconds": 21.4
+    },
+    {
+      "model": "astra",
+      "config": "adaptive (default), production preview",
+      "viewport": "1440x900",
+      "reportedFps": 32.37,
+      "wallClockFps": 32.1,
+      "onePercentLow": 2.7,
+      "p99Ms": 249.9,
+      "frames": 966,
+      "seconds": 30.08,
+      "countedSeconds": 29.8
+    },
+    {
+      "model": "opus",
+      "config": "adaptive (default), production preview",
+      "viewport": "1280x720",
+      "reportedFps": 31.2,
+      "wallClockFps": 25.1,
+      "onePercentLow": 4.5,
+      "p99Ms": 149.9,
+      "frames": 754,
+      "seconds": 30,
+      "countedSeconds": 24.1
+    },
+    {
+      "model": "opus",
+      "config": "fixed high quality, production preview",
+      "viewport": "1280x720",
+      "reportedFps": 15.1,
+      "wallClockFps": 15.1,
+      "onePercentLow": 2,
+      "p99Ms": 383.4,
+      "frames": 454,
+      "seconds": 30,
+      "countedSeconds": 30.1
+    }
+  ],
+  "longRun": {
+    "argon": null,
+    "astra": {
+      "passed": true,
+      "simulatedSeconds": 303.0,
+      "heapGrowthMB": -0.205
+    },
+    "opus": {
+      "passed": true,
+      "simulatedSeconds": 300,
+      "heapGrowthMB": 1,
+      "textureGrowth": 0
+    }
+  },
+  "code": {
+    "argon": {
+      "srcFiles": 22,
+      "srcLines": 5438,
+      "testFiles": 3,
+      "testLines": 440,
+      "distBytes": 600847,
+      "distGzipBytes": 155804,
+      "screenshots": 5
+    },
+    "astra": {
+      "srcFiles": 18,
+      "srcLines": 3860,
+      "testFiles": 2,
+      "testLines": 472,
+      "distBytes": 643100,
+      "distGzipBytes": 169902,
+      "screenshots": 6
+    },
+    "opus": {
+      "srcFiles": 66,
+      "srcLines": 15066,
+      "testFiles": 7,
+      "testLines": 759,
+      "distBytes": 1261877,
+      "distGzipBytes": 378291,
+      "screenshots": 9
+    }
+  }
+}
