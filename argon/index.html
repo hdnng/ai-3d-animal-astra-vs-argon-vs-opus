@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LUPUS // Procedural 3D Wolf Ecosystem Simulator</title>
+    <style>
+      :root {
+        --bg-panel: rgba(12, 16, 23, 0.78);
+        --bg-panel-solid: rgba(15, 20, 28, 0.92);
+        --border-subtle: rgba(148, 175, 210, 0.22);
+        --text-main: #ecf2f8;
+        --text-dim: #9ab0c7;
+        --accent-gold: #f5b942;
+        --accent-blue: #4db8ff;
+        --accent-green: #45d984;
+        --accent-orange: #ff8c42;
+        --accent-red: #ff5468;
+        --accent-purple: #b87aff;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        user-select: none;
+        -webkit-user-select: none;
+      }
+
+      html, body {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: #0a0e14;
+        font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
+        color: var(--text-main);
+      }
+
+      #app {
+        position: relative;
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+      }
+
+      canvas#viewport {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+
+      /* Thought Bubble 3D Anchor Overlay */
+      #thought-bubble {
+        position: absolute;
+        pointer-events: none;
+        transform: translate(-50%, -100%);
+        background: rgba(10, 15, 24, 0.85);
+        border: 1px solid rgba(130, 185, 255, 0.45);
+        border-radius: 20px;
+        padding: 5px 12px;
+        font-size: 12px;
+        font-weight: 600;
+        color: #f0f7ff;
+        white-space: nowrap;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45);
+        backdrop-filter: blur(6px);
+        transition: opacity 0.2s ease;
+        z-index: 10;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      #thought-bubble::after {
+        content: '';
+        position: absolute;
+        bottom: -6px;
+        left: 50%;
+        transform: translateX(-50%);
+        border-width: 6px 6px 0;
+        border-style: solid;
+        border-color: rgba(130, 185, 255, 0.45) transparent transparent;
+      }
+
+      /* HUD Layout */
+      .hud-panel {
+        position: absolute;
+        background: var(--bg-panel);
+        border: 1px solid var(--border-subtle);
+        border-radius: 12px;
+        padding: 12px 15px;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        z-index: 20;
+        font-size: 12.5px;
+      }
+
+      #hud-top-left {
+        top: 14px;
+        left: 14px;
+        width: 280px;
+      }
+
+      #hud-top-right {
+        top: 14px;
+        right: 14px;
+        width: 290px;
+        max-height: calc(100vh - 28px);
+        overflow-y: auto;
+      }
+
+      #hud-bottom-left {
+        bottom: 14px;
+        left: 14px;
+        width: 340px;
+      }
+
+      #hud-bottom-center {
+        bottom: 14px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 6px;
+        padding: 8px 12px;
+        border-radius: 28px;
+      }
+
+      .hud-title {
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--accent-gold);
+        margin-bottom: 8px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .stat-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 6px 12px;
+        margin-bottom: 10px;
+      }
+
+      .stat-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 12px;
+      }
+
+      .stat-label {
+        color: var(--text-dim);
+      }
+
+      .stat-value {
+        font-weight: 600;
+        font-variant-numeric: tabular-nums;
+      }
+
+      .need-row {
+        margin-bottom: 7px;
+      }
+
+      .need-header {
+        display: flex;
+        justify-content: space-between;
+        font-size: 11.5px;
+        margin-bottom: 3px;
+      }
+
+      .need-bar-bg {
+        width: 100%;
+        height: 7px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 4px;
+        overflow: hidden;
+      }
+
+      .need-bar-fill {
+        height: 100%;
+        border-radius: 4px;
+        transition: width 0.15s linear;
+      }
+
+      .btn {
+        background: rgba(255, 255, 255, 0.08);
+        color: var(--text-main);
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        border-radius: 7px;
+        padding: 5px 10px;
+        font-size: 11.5px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.15s ease;
+      }
+
+      .btn:hover {
+        background: rgba(255, 255, 255, 0.18);
+        border-color: rgba(255, 255, 255, 0.35);
+      }
+
+      .btn.active {
+        background: rgba(77, 184, 255, 0.25);
+        border-color: var(--accent-blue);
+        color: #fff;
+      }
+
+      .btn.accent {
+        background: rgba(245, 185, 66, 0.22);
+        border-color: var(--accent-gold);
+        color: var(--accent-gold);
+      }
+
+      .setting-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 8px;
+        gap: 8px;
+      }
+
+      .setting-row label {
+        color: var(--text-dim);
+        font-size: 11.5px;
+      }
+
+      select, input[type="range"] {
+        background: rgba(0, 0, 0, 0.35);
+        color: var(--text-main);
+        border: 1px solid var(--border-subtle);
+        border-radius: 5px;
+        padding: 3px 6px;
+        font-size: 11.5px;
+      }
+
+      input[type="range"] {
+        width: 110px;
+        accent-color: var(--accent-blue);
+      }
+
+      .divider {
+        height: 1px;
+        background: var(--border-subtle);
+        margin: 9px 0;
+      }
+
+      .key-hint {
+        display: inline-block;
+        background: rgba(255, 255, 255, 0.12);
+        border: 1px solid rgba(255, 255, 255, 0.22);
+        border-radius: 4px;
+        padding: 1px 5px;
+        font-size: 10.5px;
+        font-weight: 700;
+        color: #fff;
+        margin-right: 3px;
+      }
+
+      .controls-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4px 10px;
+        font-size: 11px;
+        color: var(--text-dim);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <canvas id="viewport"></canvas>
+
+      <!-- Floating 3D Thought / State Indicator -->
+      <div id="thought-bubble">
+        <span id="thought-icon">🐺</span>
+        <span id="thought-text">Exploring territory...</span>
+      </div>
+
+      <!-- Top-Left: Telemetry & Biological Needs -->
+      <div id="hud-top-left" class="hud-panel">
+        <div class="hud-title">
+          <span>LUPUS // ALPHA TIMBER WOLF</span>
+          <span id="hud-fps" style="color: var(--accent-green);">60 FPS</span>
+        </div>
+
+        <div class="stat-grid">
+          <div class="stat-item">
+            <span class="stat-label">Frame</span>
+            <span class="stat-value" id="hud-frametime">16.6 ms</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Time</span>
+            <span class="stat-value" id="hud-time">10:30 AM</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Mode</span>
+            <span class="stat-value" id="hud-mode" style="color: var(--accent-blue);">AI Autonomy</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">State</span>
+            <span class="stat-value" id="hud-state" style="color: var(--accent-gold);">IDLE</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Gait Speed</span>
+            <span class="stat-value" id="hud-speed">0.0 m/s</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Entities</span>
+            <span class="stat-value" id="hud-entities">0</span>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Needs Bars -->
+        <div class="need-row">
+          <div class="need-header">
+            <span>🥩 Satiety (Hunger)</span>
+            <span id="val-hunger">85%</span>
+          </div>
+          <div class="need-bar-bg">
+            <div id="bar-hunger" class="need-bar-fill" style="width: 85%; background: var(--accent-orange);"></div>
+          </div>
+        </div>
+
+        <div class="need-row">
+          <div class="need-header">
+            <span>💧 Hydration (Thirst)</span>
+            <span id="val-thirst">80%</span>
+          </div>
+          <div class="need-bar-bg">
+            <div id="bar-thirst" class="need-bar-fill" style="width: 80%; background: var(--accent-blue);"></div>
+          </div>
+        </div>
+
+        <div class="need-row">
+          <div class="need-header">
+            <span>⚡ Stamina (Energy)</span>
+            <span id="val-energy">90%</span>
+          </div>
+          <div class="need-bar-bg">
+            <div id="bar-energy" class="need-bar-fill" style="width: 90%; background: var(--accent-green);"></div>
+          </div>
+        </div>
+
+        <div class="need-row" style="margin-bottom: 0;">
+          <div class="need-header">
+            <span>🧭 Pack Curiosity / Drive</span>
+            <span id="val-curiosity">75%</span>
+          </div>
+          <div class="need-bar-bg">
+            <div id="bar-curiosity" class="need-bar-fill" style="width: 75%; background: var(--accent-purple);"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom-Center: Quick Action Bar -->
+      <div id="hud-bottom-center" class="hud-panel">
+        <button id="btn-toggle-ai" class="btn active" title="Toggle AI vs Manual WASD (Tab)">🤖 AI Mode</button>
+        <button id="btn-cam-mode" class="btn" title="Cycle Camera Mode (C)">🎥 Cam: Follow</button>
+        <button id="btn-action-howl" class="btn accent" title="Howl (H or 1)">🌕 Howl</button>
+        <button id="btn-action-pounce" class="btn" title="Pounce (P or 2)">🐾 Pounce</button>
+        <button id="btn-action-shake" class="btn" title="Shake Fur (K or 3)">💨 Shake</button>
+        <button id="btn-action-rest" class="btn" title="Rest / Sleep (R or 4)">💤 Rest</button>
+        <button id="btn-mute" class="btn" title="Toggle Audio (M)">🔊 Audio</button>
+        <button id="btn-reset" class="btn" title="Reset Simulation">↺ Reset</button>
+      </div>
+
+      <!-- Bottom-Left: Controls Guide -->
+      <div id="hud-bottom-left" class="hud-panel">
+        <div class="hud-title"><span>CONTROLS & GAIT</span><span id="hud-phase">Daylight</span></div>
+        <div class="controls-grid">
+          <div><span class="key-hint">W A S D</span> / <span class="key-hint">Arrows</span> Move</div>
+          <div><span class="key-hint">Shift</span> Sprint / Gallop</div>
+          <div><span class="key-hint">Space</span> Jump</div>
+          <div><span class="key-hint">Tab</span> AI / Manual Toggle</div>
+          <div><span class="key-hint">1</span>/<span class="key-hint">H</span> Howl</div>
+          <div><span class="key-hint">2</span>/<span class="key-hint">P</span> Pounce Attack</div>
+          <div><span class="key-hint">3</span>/<span class="key-hint">K</span> Shake Off</div>
+          <div><span class="key-hint">E</span> Eat / Drink Near Target</div>
+          <div><span class="key-hint">C</span> Camera Mode</div>
+          <div><span class="key-hint">V</span> Skeleton / Debug View</div>
+        </div>
+      </div>
+
+      <!-- Top-Right: Settings & Debug Overlay Panel -->
+      <div id="hud-top-right" class="hud-panel">
+        <div class="hud-title">
+          <span>ENVIRONMENT & RENDER</span>
+          <span id="hud-quality-badge" style="font-size: 10px; color: var(--accent-blue);">AUTO-PERF</span>
+        </div>
+
+        <div class="setting-row">
+          <label for="sel-shadow">Shadow Quality</label>
+          <select id="sel-shadow">
+            <option value="high" selected>High (2048 Soft)</option>
+            <option value="medium">Medium (1024)</option>
+            <option value="low">Low (512)</option>
+            <option value="off">Off</option>
+          </select>
+        </div>
+
+        <div class="setting-row">
+          <label for="rng-scale">Resolution Scale (<span id="lbl-scale">1.0</span>x)</label>
+          <input type="range" id="rng-scale" min="0.5" max="1.5" step="0.1" value="1.0" />
+        </div>
+
+        <div class="setting-row">
+          <label for="rng-time">Time of Day (<span id="lbl-tod">10.5</span>h)</label>
+          <input type="range" id="rng-time" min="0" max="24" step="0.1" value="10.5" />
+        </div>
+
+        <div class="setting-row">
+          <label for="rng-timespeed">Time Speed (<span id="lbl-timespeed">1.0</span>x)</label>
+          <input type="range" id="rng-timespeed" min="0" max="20" step="0.5" value="1.0" />
+        </div>
+
+        <div class="setting-row">
+          <label for="sel-weather">Weather System</label>
+          <select id="sel-weather">
+            <option value="clear" selected>Clear + Fireflies (Night)</option>
+            <option value="rain">Mountain Rainstorm</option>
+            <option value="mist">Alpine Mist / Snow Dust</option>
+          </select>
+        </div>
+
+        <div class="setting-row">
+          <label>Post-Processing (SSAO+Bloom)</label>
+          <button id="btn-postfx" class="btn active">ON</button>
+        </div>
+
+        <div class="setting-row">
+          <label>Adaptive FPS Quality</label>
+          <button id="btn-adaptive" class="btn active">ON</button>
+        </div>
+
+        <div class="divider"></div>
+        <div class="hud-title" style="margin-bottom: 6px;"><span>DEBUG OVERLAYS</span></div>
+
+        <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+          <button id="btn-dbg-skeleton" class="btn">🦴 Skeleton Rig</button>
+          <button id="btn-dbg-ai" class="btn">🎯 AI Vectors</button>
+          <button id="btn-dbg-wire" class="btn">🕸️ Wireframe</button>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
