@@ -1,6 +1,6 @@
-# Prompt dùng cho cả 3 model
+# Prompt used for all three models
 
-Đây là prompt **nguyên văn, không chỉnh sửa**, được gửi giống hệt nhau cho cả 3 model: Gemini 4 Argon (high), Astra 6 (xhigh) và Opus 5.5 (xhigh). Mỗi model bắt đầu trong một thư mục trống và làm việc tự động hoàn toàn. Kết quả nằm trong [`argon/`](argon/), [`astra/`](astra/) và [`opus/`](opus/). Phần đối chiếu từng yêu cầu với 3 bài làm nằm ở [mục 4 của README](README.md#4-mức-đáp-ứng-đề-bài).
+This is the **verbatim, unedited** prompt that was given identically to all 3 models: Gemini 4 Argon (high), Astra 6 (xhigh) and Opus 5.5 (xhigh). Each model started in an empty working directory and worked fully autonomously. Their results are in [`argon/`](argon/), [`astra/`](astra/) and [`opus/`](opus/). The item-by-item compliance check is in [section 4 of the README](README.md#4-prompt-compliance).
 
 ---
 
