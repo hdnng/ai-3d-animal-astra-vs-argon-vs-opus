@@ -1,0 +1,32 @@
+{
+  "name": "lupus-wolf-simulator",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Procedural 3D grey-wolf ecosystem simulator built with three.js",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview --port 4173 --strictPort",
+    "typecheck": "tsc --noEmit",
+    "browsers": "node scripts/ensure-browser.mjs",
+    "pretest": "node scripts/ensure-browser.mjs",
+    "test": "playwright test",
+    "prescreenshots": "node scripts/ensure-browser.mjs",
+    "screenshots": "node scripts/screenshots.mjs",
+    "prebench": "node scripts/ensure-browser.mjs",
+    "bench": "node scripts/bench.mjs",
+    "prelongrun": "node scripts/ensure-browser.mjs",
+    "longrun": "node scripts/longrun.mjs"
+  },
+  "dependencies": {
+    "postprocessing": "^6.39.5",
+    "three": "^0.186.1"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.64.0",
+    "@types/three": "^0.186.0",
+    "typescript": "^5.9.3",
+    "vite": "^8.3.4"
+  }
+}
