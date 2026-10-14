@@ -1,0 +1,13 @@
+/* Solid translucent panels avoid WebGL/backdrop-filter compositing failures on Intel drivers. */
+.glass {
+  backdrop-filter: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  button,
+  .need div i {
+    transition: none;
+  }
+  #toast.show {
+    animation-duration: 1.5s;
+  }
+}
