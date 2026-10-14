@@ -1,0 +1,199 @@
+{
+  "date": "2026-10-14T16:29:36.693Z",
+  "machine": {
+    "cpu": "Intel(R) Core(TM) i7-8650U CPU @ 1.90GHz",
+    "cores": 8,
+    "ramGB": 16,
+    "platform": "win32 10.0.26200",
+    "gpu": "ANGLE (Intel, Intel(R) UHD Graphics 620 (0x00005917) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+  },
+  "browser": "Playwright Chromium (headless), ANGLE/D3D11, vsync-limited (60 Hz cap)",
+  "viewport": "1280x720 @ devicePixelRatio 1",
+  "backgroundGpuNote": "backgroundGpu3DPercent = 3D-engine utilisation by other processes measured just before each run (Windows only).",
+  "results": [
+    {
+      "config": "adaptive (default)",
+      "note": "Default settings with adaptive quality enabled (what users get).",
+      "seconds": 30,
+      "frames": 754,
+      "avgFps": 31.2,
+      "low1PercentFps": 4.5,
+      "frameTimeMs": {
+        "avg": 32.01,
+        "p50": 16.7,
+        "p95": 83.4,
+        "p99": 149.9,
+        "max": 383.3
+      },
+      "cpuMsPerFrameAvg": 8.97,
+      "memory": {
+        "jsHeapStartMB": 11.4,
+        "jsHeapEndMB": 17.1,
+        "jsHeapPeakMB": 40.1,
+        "gpuGeometries": 221,
+        "gpuTextures": 23,
+        "shaderPrograms": 54
+      },
+      "render": {
+        "drawCalls": 86,
+        "triangles": 379232,
+        "canvas": [
+          1280,
+          720,
+          0.55
+        ]
+      },
+      "adaptiveQuality": {
+        "finalLevel": 7,
+        "finalStep": "res 55%, grass 30%",
+        "levelsOverTime": [
+          4,
+          4,
+          4,
+          4,
+          5,
+          5,
+          5,
+          5,
+          5,
+          5,
+          5,
+          5,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          7,
+          7,
+          7,
+          7
+        ]
+      },
+      "effectiveSettings": {
+        "shadowQuality": 1,
+        "resolutionScale": 0.55,
+        "postProcessing": false,
+        "ambientOcclusion": false,
+        "bloom": false,
+        "weatherEnabled": true,
+        "weatherMode": "auto",
+        "timeSpeed": 1,
+        "grassDensity": 0.3,
+        "furQuality": 0,
+        "adaptiveQuality": true,
+        "showHud": true
+      },
+      "entities": {
+        "wolves": 4,
+        "deer": 7,
+        "hares": 25,
+        "birds": 46,
+        "fish": 22,
+        "butterflies": 28,
+        "carcasses": 0
+      },
+      "backgroundGpu3DPercent": 62,
+      "consoleErrors": 0,
+      "consoleWarnings": 0
+    },
+    {
+      "config": "fixed high quality",
+      "note": "All effects on, adaptive quality disabled (worst case).",
+      "seconds": 30,
+      "frames": 454,
+      "avgFps": 15.1,
+      "low1PercentFps": 2,
+      "frameTimeMs": {
+        "avg": 66.33,
+        "p50": 50,
+        "p95": 150,
+        "p99": 383.4,
+        "max": 549.9
+      },
+      "cpuMsPerFrameAvg": 12.49,
+      "memory": {
+        "jsHeapStartMB": 12.5,
+        "jsHeapEndMB": 13.4,
+        "jsHeapPeakMB": 37.8,
+        "gpuGeometries": 219,
+        "gpuTextures": 41,
+        "shaderPrograms": 36
+      },
+      "render": {
+        "drawCalls": 131,
+        "triangles": 956249,
+        "canvas": [
+          1280,
+          720,
+          1
+        ]
+      },
+      "adaptiveQuality": {
+        "finalLevel": 0,
+        "finalStep": "manual",
+        "levelsOverTime": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "effectiveSettings": {
+        "shadowQuality": 2,
+        "resolutionScale": 1,
+        "postProcessing": true,
+        "ambientOcclusion": true,
+        "bloom": true,
+        "weatherEnabled": true,
+        "weatherMode": "auto",
+        "timeSpeed": 1,
+        "grassDensity": 1,
+        "furQuality": 2,
+        "adaptiveQuality": true,
+        "showHud": true
+      },
+      "entities": {
+        "wolves": 4,
+        "deer": 7,
+        "hares": 25,
+        "birds": 46,
+        "fish": 22,
+        "butterflies": 28,
+        "carcasses": 0
+      },
+      "backgroundGpu3DPercent": 45,
+      "consoleErrors": 0,
+      "consoleWarnings": 0
+    }
+  ]
+}
