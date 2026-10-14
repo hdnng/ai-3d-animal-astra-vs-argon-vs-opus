@@ -130,9 +130,9 @@ def fps_chart(rows):
         f'<rect class="bg" width="{w}" height="{h}" rx="8"/>',
         # legend
         f'<rect class="s1" x="{left}" y="18" width="12" height="12" rx="3"/>',
-        f'<text class="t" x="{left + 18}" y="29">FPS tự báo cáo (README / JSON)</text>',
+        f'<text class="t" x="{left + 18}" y="29">Self-reported FPS (README / JSON)</text>',
         f'<rect class="s2" x="{left + 250}" y="18" width="12" height="12" rx="3"/>',
-        f'<text class="t" x="{left + 268}" y="29">FPS thực theo đồng hồ (số frame ÷ 30 s)</text>',
+        f'<text class="t" x="{left + 268}" y="29">Wall-clock FPS (frames ÷ 30 s)</text>',
     ]
     for v in range(0, 71, 10):
         out.append(f'<line class="g" x1="{x(v):.1f}" x2="{x(v):.1f}" y1="{top - 8}" y2="{h - 46}" stroke-width="1"/>')
@@ -140,7 +140,7 @@ def fps_chart(rows):
     out.append(
         f'<line class="tgt" x1="{x(60):.1f}" x2="{x(60):.1f}" y1="{top - 8}" y2="{h - 46}" stroke-width="2" stroke-dasharray="5 4"/>'
     )
-    out.append(f'<text class="t2" x="{x(60) + 4:.1f}" y="{top - 12}">mục tiêu 60</text>')
+    out.append(f'<text class="t2" x="{x(60) + 4:.1f}" y="{top - 12}">60 FPS target</text>')
     for i, (row, label) in enumerate(zip(rows, labels)):
         y0 = top + i * group_h
         out.append(f'<text class="t" x="{left - 12}" y="{y0 + bar_h + 6}" text-anchor="end">{label}</text>')
@@ -154,7 +154,7 @@ def fps_chart(rows):
                 f'a4,4 0 0 1 -4,4 h{-(bw - 4):.1f} z"><title>{label}: {v} FPS</title></path>'
             )
             out.append(f'<text class="t" x="{x(v) + 6:.1f}" y="{y + bar_h - 4}">{v:g}</text>')
-    out.append(f'<text class="t2" x="{left + plot_w / 2:.1f}" y="{h - 8}" text-anchor="middle" font-size="11">FPS trung bình · benchmark 30 s · Intel UHD 620</text>')
+    out.append(f'<text class="t2" x="{left + plot_w / 2:.1f}" y="{h - 8}" text-anchor="middle" font-size="11">Average FPS · 30 s benchmark · Intel UHD 620</text>')
     out.append("</svg>")
     with open(os.path.join(OUT_ASSETS, "fps-comparison.svg"), "w", encoding="utf8") as f:
         f.write("\n".join(out))
@@ -215,20 +215,20 @@ def main():
         json.dump(summary, f, indent=2, ensure_ascii=False)
 
     fps_chart(rows)
-    grid("compare-daylight.jpg", "Cảnh ban ngày – camera follow + HUD", [
-        ("01-daylight-follow.png", "10:47 · AI chạy qua đồng cỏ"),
-        ("01-afternoon.png", "16:00 · cáo Ember, orbit"),
-        ("01_golden_hour_follow_hud.png", "17:10 · sói alpha, follow"),
+    grid("compare-daylight.jpg", "Daytime – follow camera + HUD", [
+        ("01-daylight-follow.png", "10:47 · AI cantering across meadow"),
+        ("01-afternoon.png", "16:00 · Ember the fox, orbit"),
+        ("01_golden_hour_follow_hud.png", "17:10 · alpha wolf, follow"),
     ])
-    grid("compare-night.jpg", "Cảnh đêm", [
-        ("03-starlight-night-pack.png", "23:32 · tuần tra lãnh thổ"),
-        ("03-moonlight.png", "22:00 · ánh trăng"),
-        ("07_pack_howl_dusk.png", "đêm · cả bầy hú, eyeshine"),
+    grid("compare-night.jpg", "Night", [
+        ("03-starlight-night-pack.png", "23:32 · patrolling territory"),
+        ("03-moonlight.png", "22:00 · moonlight"),
+        ("07_pack_howl_dusk.png", "night · pack howl, eyeshine"),
     ])
-    grid("compare-showcase.jpg", "Debug rig / hành vi đặc trưng", [
+    grid("compare-showcase.jpg", "Debug rig / signature behaviour", [
         ("05-skeleton-debug-ik.png", "skeleton + AI vectors, POUNCE"),
-        ("05-rest.png", "trạng thái nghỉ (rest)"),
-        ("08_debug_skeleton_ai.png", "skeleton + đường mục tiêu AI"),
+        ("05-rest.png", "rest state"),
+        ("08_debug_skeleton_ai.png", "skeleton + AI target lines"),
     ])
     print(json.dumps(summary, indent=2, ensure_ascii=False))
 
