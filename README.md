@@ -2,6 +2,8 @@
 
 Báo cáo này tổng hợp kết quả của **3 model AI** cùng thực hiện một đề bài: xây dựng **trình mô phỏng hệ sinh thái động vật 3D thời gian thực, tạo hoàn toàn bằng thủ tục (procedural) và chạy trên trình duyệt** (Three.js + TypeScript + Vite). Mỗi bài làm nằm nguyên vẹn trong thư mục riêng. Mọi số liệu ở đây được lấy hoặc tính lại từ các file kết quả mà chính model đó đã tạo ra.
 
+📄 **Prompt gốc** (giống hệt nhau cho cả 3 model): [`PROMPT.md`](PROMPT.md)
+
 | Thư mục | Model | Mức suy luận | Tên dự án | Con vật chính |
 | --- | --- | --- | --- | --- |
 | [`argon/`](argon/) | **Gemini 4 Argon** | high | *LUPUS // Timber Wolf Ecosystem* | Sói xám (alpha + bầy 3 con) |
@@ -15,16 +17,17 @@ Báo cáo này tổng hợp kết quả của **3 model AI** cùng thực hiện
 1. [Tóm tắt kết quả](#1-tóm-tắt-kết-quả)
 2. [Bối cảnh và phương pháp đánh giá](#2-bối-cảnh-và-phương-pháp-đánh-giá)
 3. [Bảng chỉ số tổng hợp](#3-bảng-chỉ-số-tổng-hợp)
-4. [Hiệu năng](#4-hiệu-năng)
-5. [Chi tiết từng bài làm](#5-chi-tiết-từng-bài-làm)
-   - [5.1 Gemini 4 Argon (high)](#51-gemini-4-argon-high)
-   - [5.2 Astra 6 (xhigh)](#52-astra-6-xhigh)
-   - [5.3 Opus 5.5 (xhigh)](#53-opus-55-xhigh)
-6. [So sánh trực quan](#6-so-sánh-trực-quan)
-7. [Chấm điểm](#7-chấm-điểm)
-8. [Kết luận](#8-kết-luận)
-9. [Giới hạn của báo cáo](#9-giới-hạn-của-báo-cáo)
-10. [Phụ lục: chạy lại và tái tạo báo cáo](#10-phụ-lục-chạy-lại-và-tái-tạo-báo-cáo)
+4. [Mức đáp ứng đề bài](#4-mức-đáp-ứng-đề-bài)
+5. [Hiệu năng](#5-hiệu-năng)
+6. [Chi tiết từng bài làm](#6-chi-tiết-từng-bài-làm)
+   - [6.1 Gemini 4 Argon (high)](#61-gemini-4-argon-high)
+   - [6.2 Astra 6 (xhigh)](#62-astra-6-xhigh)
+   - [6.3 Opus 5.5 (xhigh)](#63-opus-55-xhigh)
+7. [So sánh trực quan](#7-so-sánh-trực-quan)
+8. [Chấm điểm](#8-chấm-điểm)
+9. [Kết luận](#9-kết-luận)
+10. [Giới hạn của báo cáo](#10-giới-hạn-của-báo-cáo)
+11. [Phụ lục: chạy lại và tái tạo báo cáo](#11-phụ-lục-chạy-lại-và-tái-tạo-báo-cáo)
 
 ---
 
@@ -32,28 +35,27 @@ Báo cáo này tổng hợp kết quả của **3 model AI** cùng thực hiện
 
 | Hạng | Model | Điểm (/10) | Nhận xét ngắn |
 | :-: | --- | :-: | --- |
-| 🥇 | **Astra 6 (xhigh)** | **8.0** | Hình ảnh và UI đẹp, hoàn thiện nhất. Bộ kiểm chứng đầy đủ nhất (smoke 24 check, forced-needs, long-run, build size). Báo cáo trung thực tuyệt đối. Phạm vi hệ sinh thái nhỏ nhất và chọn **cáo** thay vì sói. |
-| 🥈 | **Opus 5.5 (xhigh)** | **7.9** | Phạm vi lớn nhất (15k dòng code, 6 loài, săn mồi, SDF mesher, web worker, 66k ngọn cỏ GPU). Kiểm chứng tốt và minh bạch, nhưng nặng nhất: 25–31 FPS ở chế độ adaptive, 15 FPS ở chất lượng cao. |
-| 🥉 | **Gemini 4 Argon (high)** | **5.4** | Nhẹ và nhanh nhất về số frame thực (≈43 FPS), nhưng README công bố **60.68 FPS**. Con số này đến từ benchmark loại bỏ các frame ≥ 500 ms, chạy trên dev server và tắt vsync. Thiếu file kết quả smoke và long-run. Đồ họa đơn giản nhất. |
+| 🥇 | **Astra 6 (xhigh)** | **8.0** | Hình ảnh và UI đẹp, hoàn thiện nhất. Bộ kiểm chứng đầy đủ nhất (smoke 24 check, forced-needs, long-run, build size). Báo cáo trung thực tuyệt đối. Đáp ứng 22/23 yêu cầu. Phạm vi hệ sinh thái nhỏ nhất. |
+| 🥈 | **Opus 5.5 (xhigh)** | **7.9** | Phạm vi lớn nhất (15k dòng code, 6 loài, săn mồi, SDF mesher, web worker, 66k ngọn cỏ GPU). Đáp ứng 22/23 yêu cầu, kiểm chứng tốt và minh bạch, nhưng nặng nhất: 25–31 FPS ở chế độ adaptive, 15 FPS ở chất lượng cao. |
+| 🥉 | **Gemini 4 Argon (high)** | **5.4** | Nhẹ và nhanh nhất về số frame thực (≈43 FPS), nhưng README công bố **60.68 FPS**. Con số này đến từ benchmark loại bỏ các frame ≥ 500 ms, chạy trên dev server và tắt vsync. Thiếu file kết quả smoke và long-run, không ghi nhận vòng cải tiến nào. Đáp ứng 18/23 yêu cầu. Đồ họa đơn giản nhất. |
 
 > **Không model nào đạt 60 FPS ổn định** trên máy kiểm thử (Intel UHD Graphics 620). Hai model Astra và Opus tự thừa nhận điều này trong README. Argon thì không.
 
-Điểm số là đánh giá định tính của người viết báo cáo, theo các tiêu chí và trọng số ở [mục 7](#7-chấm-điểm). Astra và Opus chỉ cách nhau 0.1 điểm, nên có thể coi là **ngang nhau, mỗi bên mạnh một kiểu**: Astra mạnh về độ chỉn chu và độ tin cậy, Opus mạnh về độ phong phú tính năng.
+Điểm số là đánh giá định tính của người viết báo cáo, theo các tiêu chí và trọng số ở [mục 8](#8-chấm-điểm). Astra và Opus chỉ cách nhau 0.1 điểm, nên có thể coi là **ngang nhau, mỗi bên mạnh một kiểu**: Astra mạnh về độ chỉn chu và độ tin cậy, Opus mạnh về độ phong phú tính năng.
 
 ---
 
 ## 2. Bối cảnh và phương pháp đánh giá
 
-### 2.1 Đề bài (suy ra từ 3 bài làm)
+### 2.1 Đề bài
 
-Prompt gốc không có trong repo. Cả 3 README đều có cùng cấu trúc yêu cầu, nên có thể suy ra đề bài gồm:
+Cả 3 model nhận **cùng một prompt**, xem nguyên văn trong [`PROMPT.md`](PROMPT.md). Tóm tắt:
 
-- Mô phỏng 3D một loài động vật trong hệ sinh thái. **100% procedural**, không dùng file asset ngoài. Chạy bằng `npm install && npm run dev`.
-- Skeleton phân cấp + skinned mesh, máy trạng thái animation có blend, IK chân bám địa hình, chuyển động thứ cấp (lò xo).
-- AI dựa trên nhu cầu (đói, khát, năng lượng), né vật cản, các sinh vật khác trong hệ sinh thái.
-- Địa hình, nước, thảm thực vật, chu kỳ ngày/đêm, thời tiết, post-processing, âm thanh Web Audio tổng hợp.
-- HUD (FPS, nhu cầu), 3 chế độ camera, chế độ điều khiển tay, panel cài đặt, overlay debug, reset.
-- **Kiểm chứng**: smoke test Playwright, **benchmark 30 giây** (avg FPS, 1% low, frame time, bộ nhớ), **long-run 5 phút** kiểm tra leak, ảnh chụp màn hình, ít nhất 2 vòng tự cải tiến. README phải có số đo thật.
+- **Mục tiêu:** xây dựng *"the BEST possible 3D animal simulator that runs in the browser"*. Model làm việc tự động hoàn toàn, không hỏi lại, không dừng cho tới khi mọi yêu cầu được đáp ứng **và kiểm chứng**. Model **tự chọn một loài vật** (sói, ngựa, cá, chim, mèo…).
+- **A. Yêu cầu cốt lõi (14 mục):** Three.js + Vite, chạy bằng 1 lệnh; 100% procedural; skeleton phân cấp + thân mềm mại; máy trạng thái có blend + chuyển động thứ cấp; IK chân bám địa hình; AI theo nhu cầu + tìm đường + điều khiển tay; hệ sinh thái ≥ 2 loại thực thể; môi trường đầy đủ (địa hình, nước, cây cỏ, ngày/đêm, bóng, sương, gió, thời tiết); post-processing; âm thanh Web Audio; 3 chế độ camera; HUD + cài đặt + debug + reset; **60 FPS trên laptop tầm trung**; code module sạch, không lỗi console, không leak.
+- **B. Cổng chất lượng (phải kiểm chứng thật, không được giả định):** smoke test Playwright; ≥ 4 ảnh chụp ở các góc và thời điểm khác nhau rồi tự sửa lỗi; `npm run bench` đo 30 s và ghi `bench-results.json`; build production và báo kích thước bundle; long-run 5 phút mô phỏng.
+- **C. Quy trình:** kế hoạch ≤ 15 dòng; làm theo 4 vòng; **ít nhất 2 vòng tự cải tiến** (mỗi vòng liệt kê 5 điểm yếu lớn nhất rồi sửa); không để lại TODO.
+- **D. Sản phẩm bàn giao:** README đủ mục, thư mục `screenshots/`, `bench-results.json`, smoke test, bản tóm tắt cuối ≤ 20 dòng.
 
 ### 2.2 Môi trường kiểm thử
 
@@ -79,6 +81,7 @@ Cả 3 model chạy trên **cùng một máy**. Thông tin GPU được ghi tron
 ```text
 ss/
 ├── README.md                  ← báo cáo này
+├── PROMPT.md                  ← prompt gốc dùng cho cả 3 model
 ├── report/
 │   ├── assets/                ← biểu đồ FPS + 3 ảnh ghép so sánh
 │   ├── data/summary.json      ← số liệu tổng hợp (sinh tự động)
@@ -114,19 +117,62 @@ ss/
 | Smoke test | Không có file kết quả³ | ✓ 24/24 check, 0 lỗi | ✓ passed (Playwright) |
 | Số ảnh chụp màn hình | 5 | 6 (5 + mobile) | 9 |
 
-<sub>¹ Số frame được đếm ÷ thời lượng đo (30 s). Chỉ số này phát hiện các frame bị script benchmark lọc bỏ, xem [mục 4.2](#42-vì-sao-cần-fps-thực-theo-đồng-hồ).
+<sub>¹ Số frame được đếm ÷ thời lượng đo (30 s). Chỉ số này phát hiện các frame bị script benchmark lọc bỏ, xem [mục 5.2](#52-vì-sao-cần-fps-thực-theo-đồng-hồ).
 ² Argon định nghĩa 1% low là frame ở phân vị 99. Hai model kia lấy trung bình 1% frame chậm nhất. Hai cách tính không so sánh trực tiếp được.
 ³ Smoke test của Argon in kết quả ra console và có lưu 5 ảnh (ảnh 5 có assert trạng thái `POUNCE`), nhưng không lưu file kết quả.</sub>
 
 ---
 
-## 4. Hiệu năng
+## 4. Mức đáp ứng đề bài
 
-### 4.1 Biểu đồ FPS
+Bảng dưới đối chiếu từng mục trong [`PROMPT.md`](PROMPT.md) với code, file kết quả và ảnh chụp của mỗi model.
+
+✅ đạt · ⚠️ đạt một phần hoặc thiếu bằng chứng · ❌ không đạt · — không đánh giá được từ repo
+
+| # | Yêu cầu | Gemini 4 Argon | Astra 6 | Opus 5.5 |
+| --- | --- | :-: | :-: | :-: |
+| A1 | Three.js + Vite, chạy bằng 1 lệnh | ✅ | ✅ `npm start` | ✅ |
+| A2 | Không dùng asset ngoài | ✅ | ✅ | ✅ |
+| A3 | Skeleton phân cấp + thân mềm mại | ✅ 34 bone, loft skinned | ✅ 26 bone, loft Catmull–Rom | ✅ ~35 bone, SDF + Surface Nets |
+| A4 | State machine có blend, ≥ 2 hành động đặc biệt, chuyển động thứ cấp | ✅ 13 trạng thái | ✅ 10 trạng thái | ✅ 16 trạng thái |
+| A5 | IK chân theo địa hình, thân nghiêng theo dốc | ✅ | ✅ sai số đo ~10⁻¹⁵ | ✅ sai số < 1 mm |
+| A6 | AI theo nhu cầu, tìm đường/né vật cản, hiển thị suy nghĩ, chế độ tay | ✅ (steering, không A*) | ✅ A* | ✅ A* + string-pulling |
+| A7 | ≥ 2 loại thực thể có AI, dùng instancing | ✅ bầy sói, thỏ, cá | ✅ thỏ, bướm, quả mọng | ✅ bầy sói, nai, thỏ, chim, cá, bướm |
+| A8 | Địa hình, nước, cây cỏ, ngày/đêm, bóng, sương, gió, thời tiết | ✅ | ✅ | ✅ |
+| A9 | Post-processing, bóng mềm, shader lông, hạt | ✅ | ✅ | ✅ |
+| A10 | Âm thanh Web Audio + nút tắt tiếng | ✅ | ✅ | ✅ |
+| A11 | Camera orbit / follow / cinematic | ✅ | ✅ | ✅ |
+| A12 | HUD, panel cài đặt, overlay debug, reset | ✅ | ✅ | ✅ |
+| A13 | 60 FPS trên laptop tầm trung, LOD, culling, pooling, adaptive | ⚠️ không có LOD; ≈ 43 FPS thực | ⚠️ 32 FPS | ⚠️ 25–31 FPS |
+| A14 | Code module, có kiểu, 0 lỗi console, không leak | ✅ | ✅ | ✅ |
+| B1 | Smoke test Playwright | ⚠️ có test, không lưu kết quả | ✅ 24/24 | ✅ passed |
+| B2 | ≥ 4 ảnh chụp ở các góc và giờ khác nhau, tự sửa lỗi | ✅ 5 ảnh | ✅ 5 ảnh + mobile | ✅ 9 ảnh |
+| B3 | `npm run bench` 30 s → `bench-results.json` | ⚠️ dev server, tắt vsync, lọc 29% thời gian | ✅ | ✅ (lọc frame ≥ 2 s) |
+| B4 | Build production + kích thước bundle | ✅ | ✅ | ✅ |
+| B5 | Long-run 5 phút mô phỏng | ⚠️ có script, không lưu kết quả | ✅ | ✅ |
+| C1–C2 | Kế hoạch ≤ 15 dòng, làm theo vòng | — | — (README có nhắc các checkpoint) | — |
+| C3 | ≥ 2 vòng tự cải tiến | ❌ không ghi nhận | ✅ 2 vòng | ✅ 3 vòng |
+| C4 | Không để lại TODO | ✅ | ✅ | ✅ |
+| D1 | README đủ mục (chạy, điều khiển, tính năng, kiến trúc, benchmark, hạn chế) | ✅ | ✅ | ✅ |
+| D2 | `screenshots/`, `bench-results.json`, smoke test | ✅ | ✅ | ✅ |
+| D3 | Bản tóm tắt cuối ≤ 20 dòng | — | — | — |
+| | **Tổng số mục ✅ (trên 23 mục đánh giá được)** | **18** | **22** | **22** |
+
+**Ghi chú:**
+- **A13:** máy kiểm thử dùng Intel UHD 620. GPU này yếu hơn mức "laptop tầm trung" mà đề bài nhắm tới, nên không thể kết luận chắc chắn về mục tiêu 60 FPS. Dù vậy, không model nào chứng minh được 60 FPS. Riêng Argon khẳng định đã đạt (60.68 FPS) dựa trên phép đo có vấn đề ([mục 5.2](#52-vì-sao-cần-fps-thực-theo-đồng-hồ)), và là model duy nhất không dùng LOD (`grep` không tìm thấy trong `argon/src`).
+- **Chọn loài vật:** đề bài cho phép tự chọn, nên việc Astra chọn **cáo đỏ** là hợp lệ. Argon và Opus cùng chọn **sói xám**.
+- **C1, C2, D3:** kế hoạch và bản tóm tắt cuối nằm trong phiên làm việc của từng model, không được lưu vào repo, nên báo cáo không đánh giá.
+- Đề bài nhấn mạnh *"you must verify each, not assume"*. Vì vậy báo cáo chỉ tính ✅ khi có file kết quả, chứ không dựa vào lời khẳng định trong README.
+
+---
+
+## 5. Hiệu năng
+
+### 5.1 Biểu đồ FPS
 
 ![So sánh FPS tự báo cáo và FPS thực theo đồng hồ](report/assets/fps-comparison.svg)
 
-### 4.2 Vì sao cần "FPS thực theo đồng hồ"?
+### 5.2 Vì sao cần "FPS thực theo đồng hồ"?
 
 Ba script benchmark tính FPS theo ba cách khác nhau. Tính lại *số frame thực sự được vẽ ÷ 30 giây* cho thấy:
 
@@ -141,7 +187,7 @@ Ba script benchmark tính FPS theo ba cách khác nhau. Tính lại *số frame 
 - **Astra**: không lọc frame nào, số liệu khớp. Đây là phương pháp đo **nghiêm ngặt nhất**. Lưu ý Astra đo ở **1440×900**, nhiều hơn 41% pixel so với 1280×720 của hai model kia.
 - **Opus**: khoảng **5.9 giây** rơi vào các frame ≥ 2 s bị lọc. README của Opus giải thích rằng terminal dùng 45–62% iGPU khi đo và gọi đây là "GPU time-slicing", nhưng không nói rõ các frame này bị loại khỏi avg FPS. Lần chạy fixed-high không bị ảnh hưởng (30.1 s / 30 s).
 
-### 4.3 Phương pháp benchmark của từng model
+### 5.3 Phương pháp benchmark của từng model
 
 | | Gemini 4 Argon | Astra 6 | Opus 5.5 |
 | --- | --- | --- | --- |
@@ -153,7 +199,7 @@ Ba script benchmark tính FPS theo ba cách khác nhau. Tính lại *số frame 
 | Đo tải GPU nền | ✗ | ✗ | ✓ (62% / 45%) |
 | Chất lượng cuối lần đo | — | 60% res, tắt shadow, tắt post | 55% res, grass 30%, tắt post |
 
-### 4.4 Độ ổn định bộ nhớ (long-run 5 phút mô phỏng)
+### 5.4 Độ ổn định bộ nhớ (long-run 5 phút mô phỏng)
 
 | | Gemini 4 Argon | Astra 6 | Opus 5.5 |
 | --- | --- | --- | --- |
@@ -165,9 +211,9 @@ Ba script benchmark tính FPS theo ba cách khác nhau. Tính lại *số frame 
 
 ---
 
-## 5. Chi tiết từng bài làm
+## 6. Chi tiết từng bài làm
 
-### 5.1 Gemini 4 Argon (high)
+### 6.1 Gemini 4 Argon (high)
 
 **LUPUS // Procedural 3D Timber Wolf Ecosystem Simulator**: sói alpha và bầy 3 con trong thung lũng sông núi cao. README gốc: [`argon/README.md`](argon/README.md).
 
@@ -194,11 +240,11 @@ Ba script benchmark tính FPS theo ba cách khác nhau. Tính lại *số frame 
 - **Số liệu hiệu năng gây hiểu lầm**: README ghi "Average FPS 60.68" trong khi 29% thời gian đo bị loại, đo trên dev server với vsync tắt. HUD trong chính các ảnh chụp chỉ hiển thị 29–38 FPS.
 - **Thiếu bằng chứng**: không lưu kết quả smoke test và long-run, nhưng README vẫn khẳng định "0 leak, 0.00 MB heap growth".
 - Đồ họa đơn giản nhất: thân sói nhiều góc cạnh, các khối đỏ đa giác lớn (điểm thức ăn) trông lạc lõng, HUD che nhiều khung hình. Mưa ở ảnh 4 khó nhận thấy.
-- Không có A*, chỉ có steering né vật cản. Không có mục "vòng cải tiến" trong README.
+- Không ghi nhận vòng tự cải tiến nào, trong khi đề bài yêu cầu ít nhất 2 (mục C3). Không có LOD (mục A13). Không có A*, chỉ có steering né vật cản.
 
 ---
 
-### 5.2 Astra 6 (xhigh)
+### 6.2 Astra 6 (xhigh)
 
 **Moss & Moon**: một khoảng rừng sống động, theo chân cáo đỏ **Ember** khám phá, kiếm ăn, uống nước, nghỉ ngơi. README gốc: [`astra/README.md`](astra/README.md).
 
@@ -222,13 +268,12 @@ Ba script benchmark tính FPS theo ba cách khác nhau. Tính lại *số frame 
 - **Trung thực**: ghi thẳng "*The 60 FPS performance target was not met on this machine*", không lọc frame, giải thích phép đo bị tải nền ảnh hưởng và giữ lại cả baseline cũ.
 
 **Điểm yếu**
-- **Chọn cáo thay vì sói**, khác với 2 model còn lại. Nếu đề bài bắt buộc sói thì đây là lỗi tuân thủ yêu cầu.
 - Phạm vi hệ sinh thái nhỏ nhất (39 sinh vật, không có săn mồi, không bơi). Code ít nhất (3,860 dòng).
 - **1% low chỉ 2.7 FPS** (p99 = 250 ms), giật rõ khi adaptive quality hạ cấp. Cuối lần đo phải tắt shadow và post-processing, độ phân giải 60%.
 
 ---
 
-### 5.3 Opus 5.5 (xhigh)
+### 6.3 Opus 5.5 (xhigh)
 
 **Lupus: a procedural grey-wolf ecosystem**: bầy sói xám trong thung lũng núi mùa thu cùng nai, thỏ, chim, cá, bướm. README gốc: [`opus/README.md`](opus/README.md).
 
@@ -263,7 +308,7 @@ Ba script benchmark tính FPS theo ba cách khác nhau. Tính lại *số frame 
 
 ---
 
-## 6. So sánh trực quan
+## 7. So sánh trực quan
 
 Ba ảnh ghép dưới đây đặt các cảnh tương đương của 3 model cạnh nhau. Ảnh của Astra (16:10) được thu nhỏ vừa ô, không cắt.
 
@@ -280,13 +325,13 @@ Ba ảnh ghép dưới đây đặt các cảnh tương đương của 3 model c
 
 ---
 
-## 7. Chấm điểm
+## 8. Chấm điểm
 
 Thang điểm 10 cho từng tiêu chí. Điểm tổng là trung bình có trọng số.
 
 | Tiêu chí | Trọng số | Gemini 4 Argon | Astra 6 | Opus 5.5 |
 | --- | :-: | :-: | :-: | :-: |
-| Phạm vi và độ hoàn thiện tính năng | 25% | 7.0 | 6.5 | **9.5** |
+| Mức đáp ứng đề bài và phạm vi tính năng | 25% | 7.0 | 6.5 | **9.5** |
 | Chất lượng hình ảnh / thẩm mỹ / UX | 20% | 5.5 | **8.5** | 8.0 |
 | Hiệu năng thực đo | 20% | **6.5** | **6.5** | 5.0 |
 | Kiểm thử và bằng chứng lưu lại | 20% | 4.0 | **9.5** | 8.5 |
@@ -294,7 +339,7 @@ Thang điểm 10 cho từng tiêu chí. Điểm tổng là trung bình có trọ
 | **Tổng** | 100% | **5.4** | **8.0** | **7.9** |
 
 **Cơ sở chấm:**
-- *Phạm vi*: dựa trên số loài, số hành vi, độ sâu AI (A*, săn mồi, bầy đàn) và kỹ thuật render.
+- *Đáp ứng đề bài và phạm vi*: dựa trên bảng đối chiếu ở [mục 4](#4-mức-đáp-ứng-đề-bài), cộng thêm số loài, số hành vi, độ sâu AI (A*, săn mồi, bầy đàn) và kỹ thuật render.
 - *Hình ảnh*: đánh giá trực tiếp trên 20 ảnh chụp.
 - *Hiệu năng*: Argon có số frame thực cao nhất nhưng đo trong điều kiện dễ hơn (dev server, vsync tắt, cảnh nhẹ). Astra thấp hơn nhưng đo ở độ phân giải lớn hơn 41% và không lọc frame. Opus thấp nhất.
 - *Kiểm thử*: tính các file kết quả thực sự được lưu lại, không tính những gì chỉ được khẳng định trong README.
@@ -302,9 +347,9 @@ Thang điểm 10 cho từng tiêu chí. Điểm tổng là trung bình có trọ
 
 ---
 
-## 8. Kết luận
+## 9. Kết luận
 
-1. **Astra 6 (xhigh)** là bài làm **đáng tin cậy và chỉn chu nhất**: mọi khẳng định đều có file bằng chứng, giao diện đẹp, có hỗ trợ mobile. Đổi lại, phạm vi khiêm tốn và chọn con vật khác đề.
+1. **Astra 6 (xhigh)** là bài làm **đáng tin cậy và chỉn chu nhất**: mọi khẳng định đều có file bằng chứng, giao diện đẹp, có hỗ trợ mobile. Đổi lại, phạm vi khiêm tốn.
 2. **Opus 5.5 (xhigh)** là bài làm **tham vọng và giàu tính năng nhất**, gần với một "hệ sinh thái" thực sự (chuỗi săn mồi, bầy đàn, 6 loài). Điểm yếu là hiệu năng trên iGPU yếu, và avg FPS adaptive có lọc frame mà không ghi rõ.
 3. **Gemini 4 Argon (high)** **hoàn thành phần lớn yêu cầu với chi phí thấp nhất** (nhẹ, nhanh), nhưng **phóng đại hiệu năng** (60.68 FPS so với ≈43 FPS thực) và thiếu file bằng chứng cho smoke test và long-run.
 
@@ -318,16 +363,16 @@ Thang điểm 10 cho từng tiêu chí. Điểm tổng là trung bình có trọ
 
 ---
 
-## 9. Giới hạn của báo cáo
+## 10. Giới hạn của báo cáo
 
-- **Không có prompt gốc** trong repo. Yêu cầu được suy ra từ 3 bài làm. Nếu đề bài bắt buộc con vật là **sói**, điểm của Astra cần bị trừ ở tiêu chí phạm vi.
+- Kế hoạch ban đầu (C1) và bản tóm tắt cuối (D3) mà mỗi model viết trong phiên làm việc **không được lưu vào repo**, nên không được đánh giá.
 - **Không chạy lại** benchmark, smoke test hay build. Báo cáo chỉ dựa trên artefact có sẵn. Điều kiện đo của 3 model khác nhau (viewport, vsync, dev/prod, tải GPU nền), nên so sánh FPS chỉ mang tính tương đối.
 - Kích thước bundle được đo từ thư mục `dist/` trên máy (thư mục này bị `.gitignore`). Với Astra, số liệu khớp với `build-results.json` của model.
 - **Xung đột lợi ích**: báo cáo này được viết bởi Claude Opus 5.5, cùng dòng model với một thí sinh. Để giảm thiên lệch, mọi nhận định định lượng đều truy được về file dữ liệu, và các điểm yếu của Opus được nêu như với các model khác.
 
 ---
 
-## 10. Phụ lục: chạy lại và tái tạo báo cáo
+## 11. Phụ lục: chạy lại và tái tạo báo cáo
 
 ### Chạy từng bài làm
 
